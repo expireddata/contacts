@@ -1,4 +1,4 @@
-import { ContactCard } from "./ContactCard/ContactCard";
+import { ContactCard } from "./ContactCard";
 import { render } from "@testing-library/react";
 
 const mockContact = {

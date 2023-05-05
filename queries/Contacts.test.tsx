@@ -1,5 +1,10 @@
 import { fetchContacts } from "./Contacts";
 
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  cache: (f: Function) => f,
+}));
+
 const mockContact = {
   createdAt: "2023-02-12T13:12:08.303Z vvvv",
   name: "Test Name",
@@ -19,7 +24,7 @@ global.fetch = jest.fn(
 );
 
 test("get contacts contains contacts", async () => {
-  const response = fetchContacts(); 
+  const response = fetchContacts();
 
-  response.then(contacts => expect(contacts).toContain(mockContact))
+  response.then((contacts) => expect(contacts).toContain(mockContact));
 });

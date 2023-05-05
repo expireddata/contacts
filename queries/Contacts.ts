@@ -1,4 +1,4 @@
-import { cache } from 'react';
+import { cache } from "react";
 
 const baseUrl = "https://61c32f169cfb8f0017a3e9f4.mockapi.io/";
 
@@ -12,5 +12,9 @@ export type Contact = {
   phone: string;
 };
 
-export const fetchContacts = cache((): Promise<Contact[]> =>
-  fetch(`${baseUrl}/api/v1/contacts`).then(req => req.json()));
+const fetchContacts = (): Promise<Contact[]> =>
+  fetch(`${baseUrl}/api/v1/contacts`).then((req) => req.json());
+
+const cachedFetchContacts = cache(fetchContacts);
+
+export { cachedFetchContacts as fetchContacts };
