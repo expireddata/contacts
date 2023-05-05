@@ -1,5 +1,5 @@
 import { useGetContacts } from "./Contacts";
-import { act, render, waitFor } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const mockContact = {

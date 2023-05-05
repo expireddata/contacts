@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 
 const baseUrl = "https://61c32f169cfb8f0017a3e9f4.mockapi.io/";
 
-type Contact = {
+export type Contact = {
   avatar: string;
   birthday: string;
   createdAt: string;
