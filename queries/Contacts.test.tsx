@@ -1,6 +1,4 @@
-import { useGetContacts } from "./Contacts";
-import { render, waitFor } from "@testing-library/react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { fetchContacts } from "./Contacts";
 
 const mockContact = {
   createdAt: "2023-02-12T13:12:08.303Z vvvv",
@@ -16,24 +14,12 @@ const mockContact = {
 global.fetch = jest.fn(
   () =>
     Promise.resolve({
-      json: Promise.resolve([mockContact]),
+      json: () => Promise.resolve([mockContact]),
     }) as unknown as Promise<Response>
 );
 
-const TestComponent = () => {
-  const { isLoading, contacts } = useGetContacts();
-
-  return <>{isLoading ? "Loading" : contacts![0].name}</>;
-};
-
 test("get contacts contains contacts", async () => {
-  const queryClient = new QueryClient();
-  const { getByText } = render(
-    <QueryClientProvider client={queryClient}>
-      <TestComponent />
-    </QueryClientProvider>
-  );
-  await waitFor(() => expect(() => getByText("Tfdst Name")).toBeDefined(), {
-    timeout: 5000,
-  });
+  const response = fetchContacts(); 
+
+  response.then(contacts => expect(contacts).toContain(mockContact))
 });

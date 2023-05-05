@@ -12,17 +12,5 @@ export type Contact = {
   phone: string;
 };
 
-type GetContactResponse = {
-  isLoading: boolean;
-  error: unknown;
-  contacts: Contact[] | undefined;
-};
-
-const fetchContacts = () =>
+export const fetchContacts = (): Promise<Contact[]> =>
   fetch(`${baseUrl}/api/v1/contacts`).then(req => req.json());
-
-export const useGetContacts = (): GetContactResponse => {
-  const { isLoading, error, data } = useQuery<Contact[]>("contacts", fetchContacts);
-
-  return { isLoading, error, contacts: data };
-};
