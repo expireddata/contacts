@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Contacts Web App 
+
+This is a simple contacts web app which allows users to perform CRUD operations on the contacts within the directory.
 
 ## Getting Started
 
