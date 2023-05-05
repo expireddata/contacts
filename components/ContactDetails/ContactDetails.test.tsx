@@ -1,5 +1,5 @@
 import { ContactDetails } from "./ContactDetails";
-import { render } from "@testing-library/react";
+import { getByDisplayValue, render } from "@testing-library/react";
 
 const mockContact = {
   createdAt: "2023-02-12T13:12:08.303Z",
@@ -13,12 +13,12 @@ const mockContact = {
 };
 
 test("contact details can display the required details", () => {
-  const { getByText, getByAltText } = render(<ContactDetails contact={mockContact} />);
+  const { getByLabelText, getByAltText } = render(<ContactDetails contact={mockContact} readOnly />);
   
-  expect(getByText(`Name: ${mockContact.name}`)).toBeDefined() 
   expect(getByAltText(`${mockContact.name} avatar`)).toBeDefined()
-  expect(getByText('Created: 12/02/2023')).toBeDefined() 
-  expect(getByText(`Email: ${mockContact.email}`)).toBeDefined() 
-  expect(getByText(`Phone: ${mockContact.phone}`)).toBeDefined() 
-  expect(getByText(`Birthday: 12/02/2023`)).toBeDefined() 
+  expect((getByLabelText('Name:') as HTMLInputElement).value).toBe(mockContact.name)
+  expect((getByLabelText('Created:') as HTMLInputElement).value).toBe('2023-02-12')
+  expect((getByLabelText('Email:') as HTMLInputElement).value).toBe(mockContact.email)
+  expect((getByLabelText('Phone:') as HTMLInputElement).value).toBe(mockContact.phone)
+  expect((getByLabelText('Birthday:') as HTMLInputElement).value).toBe('2023-02-12')
 });

@@ -19,3 +19,9 @@
 body { 
   background-color: #efefef
 }
+
+input:read-only { 
+  background-color: inherit;
+  cursor: inherit;
+  border: none !important;
+}
