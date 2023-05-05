@@ -1,11 +1,11 @@
-import { ContactCard } from "@/components/ContactCard";
+import { ContactCard } from "@/components/ContactCard/ContactCard";
 import { fetchContacts } from "@/queries/Contacts";
 
 const ContactsList = async () => {
   try {
     const contacts = await fetchContacts();
     return (
-      <div>
+      <div className="w-full flex flex-wrap">
         {contacts.map((contact) => (
           <ContactCard contact={contact} key={contact.id} />
         ))}
@@ -19,9 +19,10 @@ const ContactsList = async () => {
 
 export default function Contacts() {
   return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        {/* @ts-expect-error Async Server Component */}
-        <ContactsList />
-      </main>
+    <main className="mx-48 my-24">
+      <h1 className="text-3xl mb-24">Contacts</h1>
+      {/* @ts-expect-error Async Server Component */}
+      <ContactsList />
+    </main>
   );
 }
