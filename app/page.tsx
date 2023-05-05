@@ -1,31 +1,27 @@
 import { ContactCard } from "@/components/ContactCard";
-import { useGetContacts } from "@/queries/Contacts";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { fetchContacts } from "@/queries/Contacts";
 
-const queryClient = new QueryClient();
-
-const ContactsList = () => {
-  const { isLoading, error, contacts } = useGetContacts();
-
-  if (error) {
-    return <>Something went wrong</>; //TODO: Add better error screen/component
-  }
-
-  {
-    isLoading || !contacts ? (
-      <div>Loading...</div>
-    ) : (
-      contacts.map((contact) => (
-        <ContactCard contact={contact} key={contact.id} />
-      ))
+const ContactsList = async () => {
+  try {
+    const contacts = await fetchContacts();
+    return (
+      <div>
+        {contacts.map((contact) => (
+          <ContactCard contact={contact} key={contact.id} />
+        ))}
+      </div>
     );
+  } catch (error) {
+    console.log(error);
+    return <>Something went wrong</>; //TODO: Add better error screen/component
   }
 };
 
 export default function Contacts() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
-    </QueryClientProvider>
+      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        {/* @ts-expect-error Async Server Component */}
+        <ContactsList />
+      </main>
   );
 }
