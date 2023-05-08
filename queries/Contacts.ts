@@ -13,9 +13,9 @@ export type Contact = {
 };
 
 export const fetchContacts = (): Promise<Contact[]> =>
-  fetch(`${baseUrl}/api/v1/contacts`).then((req) => req.json());
+  fetch(`${baseUrl}/api/v1/contacts`, { cache: 'no-cache' }).then((req) => req.json());
 
-export const putContact = async (contact: Contact) => { 
+export const putContact = async (contact: Contact): Promise<Contact> => { 
     let options = {
         method: "PUT",
         headers: {
@@ -24,6 +24,18 @@ export const putContact = async (contact: Contact) => {
         body: JSON.stringify(contact)      
     }
     let p = await fetch(`${baseUrl}/api/v1/contacts/${contact.id}`, options);
+    let response: Contact = await p.json();
+    return response;
+}
+
+export const deleteContact = async (id: string) => { 
+    let options = {
+        method: "DELETE",
+        headers: {
+            "Content-Type":"application/json",
+        }      
+    }
+    let p = await fetch(`${baseUrl}/api/v1/contacts/${id}`, options);
     let response = await p.json();
     return response;
 }

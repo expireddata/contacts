@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Contact, putContact } from "../../queries/Contacts";
+import { Contact, deleteContact, putContact } from "../../queries/Contacts";
 
 type ContactCardProps = {
   contact: Contact;
@@ -9,7 +9,6 @@ type ContactCardProps = {
 export const ContactDetails = ({ contact }: ContactCardProps): JSX.Element => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [pageContact, setPageContact] = useState<Contact>(contact);
-
   return (
     <div className="flex">
       <img
@@ -93,6 +92,14 @@ export const ContactDetails = ({ contact }: ContactCardProps): JSX.Element => {
           Edit
         </button>
       )}
+      <button
+        className="h-7"
+        onClick={() => {
+          deleteContact(contact.id).then(() => window.location.assign("/"));
+        }}
+      >
+        Delete
+      </button>
     </div>
   );
 };
