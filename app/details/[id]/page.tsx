@@ -20,7 +20,7 @@ export default async function Details({ params }: DetailsProps): Promise<JSX.Ele
     <main className="mx-48 my-24">
       <Link href="/">Go Back</Link>
       <h1 className="text-3xl mb-24 mt-12">Details</h1>
-      <ContactDetails contact={contact} readOnly />
+      <ContactDetails contact={contact} />
     </main>
   );
 }
