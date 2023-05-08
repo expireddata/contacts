@@ -13,7 +13,7 @@ const mockContact = {
 };
 
 test("contact details can display the required details", () => {
-  const { getByLabelText, getByAltText } = render(<ContactDetails contact={mockContact} readOnly />);
+  const { getByLabelText, getByAltText } = render(<ContactDetails contact={mockContact} />);
   
   expect(getByAltText(`${mockContact.name} avatar`)).toBeDefined()
   expect((getByLabelText('Name:') as HTMLInputElement).value).toBe(mockContact.name)
