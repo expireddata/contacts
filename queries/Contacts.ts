@@ -1,6 +1,6 @@
 import { cache } from "react";
 
-const baseUrl = "https://61c32f169cfb8f0017a3e9f4.mockapi.io/";
+const baseUrl = "https://61c32f169cfb8f0017a3e9f4.mockapi.io";
 
 export type Contact = {
   avatar: string;
@@ -12,9 +12,18 @@ export type Contact = {
   phone: string;
 };
 
-const fetchContacts = (): Promise<Contact[]> =>
+export const fetchContacts = (): Promise<Contact[]> =>
   fetch(`${baseUrl}/api/v1/contacts`).then((req) => req.json());
 
-const cachedFetchContacts = cache(fetchContacts);
-
-export { cachedFetchContacts as fetchContacts };
+export const putContact = async (contact: Contact) => { 
+    let options = {
+        method: "PUT",
+        headers: {
+            "Content-Type":"application/json",
+        },
+        body: JSON.stringify(contact)      
+    }
+    let p = await fetch(`${baseUrl}/api/v1/contacts/${contact.id}`, options);
+    let response = await p.json();
+    return response;
+}
