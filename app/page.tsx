@@ -1,18 +1,14 @@
 import { ContactCard } from "@/components/ContactCard/ContactCard";
+import { ContactsContainer } from "@/components/ContactsContainer/ContactsContainer";
 import { fetchContacts } from "@/queries/Contacts";
 
 const ContactsList = async () => {
   try {
     const contacts = await fetchContacts();
     return (
-      <div className="w-full flex flex-wrap">
-        {contacts.map((contact) => (
-          <ContactCard contact={contact} key={contact.id} />
-        ))}
-      </div>
+        <ContactsContainer contacts={contacts} /> 
     );
   } catch (error) {
-    console.log(error);
     return <>Something went wrong</>; //TODO: Add better error screen/component
   }
 };
